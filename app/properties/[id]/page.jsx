@@ -1,5 +1,6 @@
 import PropertyHeaderImg from "@/components/PropertyHeaderImg";
 import PropertyInfo from "@/components/PropertyInfo";
+import PropertyImages from "@/components/PropertyImages";
 import connectDB from "@/config/db";
 import Property from "@/models/Property";
 import Link from "next/link";
@@ -31,6 +32,7 @@ async function PropertyDetailsPage({ params }) {
           </div>
         </div>
       </section>
+      <PropertyImages images={property.images} />
     </>
   );
 }
