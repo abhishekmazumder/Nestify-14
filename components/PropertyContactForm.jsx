@@ -1,6 +1,5 @@
 import { FaPaperPlane } from "react-icons/fa";
 
-
 const PropertyContactForm = ({property}) => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
