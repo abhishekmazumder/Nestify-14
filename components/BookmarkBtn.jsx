@@ -13,12 +13,14 @@ const BookmarkBtn = ({ property }) => {
   const { data: session } = useSession();
   const userId = session?.user?.id;
 
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBookmarkStatus = async () => {
       try {
+        setLoading(true);
         const { isBookmarked } = await checkBookmarkStatus(property._id);
+        setLoading(false);
         setIsSaved(isBookmarked);
       } catch (error) {
         toast.error(error.message, {
@@ -52,6 +54,7 @@ const BookmarkBtn = ({ property }) => {
   };
 
   if (!session) return null; // Ensure the user is logged in before showing the button
+  if (loading) return <p className="text-center">Loading...</p>
 
   return isSaved ? (
     <button
