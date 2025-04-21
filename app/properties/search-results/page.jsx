@@ -32,6 +32,7 @@ const SearchResultsPage = async ({
   //   };
   // }
 
+  // for propertyType param, we will search in the following fields:
   if (propertyType && propertyType !== "All") {
     const propertyTypeRegex = new RegExp(propertyType, "i");
     query.type = { $regex: propertyTypeRegex };
