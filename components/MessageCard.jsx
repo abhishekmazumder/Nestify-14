@@ -1,15 +1,28 @@
-import React from "react";
+"use client";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import markMessageAsRead from "@/app/actions/markMessageRead";
 
 const MessageCard = ({ message }) => {
+  const [isRead, setIsRead] = useState(message.isRead);
+
+  const handleMessageClick = async () => {
+    const read = await markMessageAsRead(message._id);
+    setIsRead(read);
+  };
+
   return (
     <div className="relative bg-white p-4 rounded-md shadow-md border border-gray-200">
+      {!isRead && (
+        <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-md">
+          New Message!
+        </div>
+      )}
       <h2 className="text-xl mb-4">
         <span className="font-bold">Property Inquiry:</span>
-        {message.property.name} 
+        {message.property.name}
       </h2>
-      <p className="text-gray-700">
-        {message.body}
-      </p>
+      <p className="text-gray-700">{message.body}</p>
 
       <ul className="mt-4">
         <li>
@@ -29,15 +42,19 @@ const MessageCard = ({ message }) => {
           </a>
         </li>
         <li>
-          <strong>Received:</strong>{new Date(message.createdAt).toLocaleDateString("en-US", {
+          <strong>Received:</strong>
+          {new Date(message.createdAt).toLocaleDateString("en-US", {
             year: "numeric",
             month: "long",
             day: "numeric",
           })}
         </li>
       </ul>
-      <button className="mt-4 mr-3 bg-blue-500 text-white py-1 px-3 rounded-md">
-        Mark As Read
+      <button
+        onClick={handleMessageClick}
+        className="mt-4 mr-3 bg-blue-500 text-white py-1 px-3 rounded-md"
+      >
+        {isRead ? "Mark as Unread" : "Mark as Read"}
       </button>
       <button className="mt-4 bg-red-500 text-white py-1 px-3 rounded-md">
         Delete
