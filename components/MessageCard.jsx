@@ -2,14 +2,31 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import markMessageAsRead from "@/app/actions/markMessageRead";
+import deleteMessage from "@/app/actions/deleteMessage";
+import { useGlobalContext } from "@/context/GlobalContext";
 
 const MessageCard = ({ message }) => {
   const [isRead, setIsRead] = useState(message.isRead);
+  const { setUnreadMessageCount } = useGlobalContext();
 
   const handleMessageClick = async () => {
     const read = await markMessageAsRead(message._id);
     setIsRead(read);
+    setUnreadMessageCount((prevCount) => read? prevCount - 1 : prevCount + 1);
   };
+
+  const handleDelete = async () => {
+    const confirmed = confirm("Are you sure you want to delete this message?");
+    if (confirmed) {
+      try {
+        await deleteMessage(message._id);
+        setUnreadMessageCount((prevCount) => isRead ? prevCount : prevCount - 1);
+        toast.success("Message deleted successfully!");
+      } catch (error) {
+        toast.error(error.message || "Failed to delete message.");
+      }
+    }
+  }
 
   return (
     <div className="relative bg-white p-4 rounded-md shadow-md border border-gray-200">
@@ -56,7 +73,10 @@ const MessageCard = ({ message }) => {
       >
         {isRead ? "Mark as Unread" : "Mark as Read"}
       </button>
-      <button className="mt-4 bg-red-500 text-white py-1 px-3 rounded-md">
+      <button
+        onClick={handleDelete)}
+        className="mt-4 bg-red-500 text-white py-1 px-3 rounded-md"
+      >
         Delete
       </button>
     </div>
