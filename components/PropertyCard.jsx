@@ -9,6 +9,7 @@ import {
 } from 'react-icons/fa';
 
 const PropertyCard = ({ property }) => {
+  
   const getRateDisplay = () => {
     const { rates } = property;
     if (rates.monthly) {

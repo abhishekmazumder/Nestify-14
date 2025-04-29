@@ -21,7 +21,7 @@ const PropertyImages = ({ images }) => {
                   onClick={open}
                   ref={ref}
                   alt=""
-                  className="object-cover h-[400px] mx-auto rounded-xl"
+                  className="object-cover h-[400px] mx-auto rounded-xl cursor-pointer"
                   width={1280}
                   height={400}
                   priority={true}
@@ -51,7 +51,7 @@ const PropertyImages = ({ images }) => {
                         onClick={open}
                         ref={ref}
                         alt=""
-                        className="object-cover h-[400px] w-full rounded-xl"
+                        className="object-cover h-[400px] w-full rounded-xl cursor-pointer"
                         width={1280}
                         height={400}
                         priority={true}
