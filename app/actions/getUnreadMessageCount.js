@@ -1,6 +1,9 @@
+"use server";
+
 import connectDB from "@/config/db";
 import Message from "@/models/Message";
 import { getSessionUser } from "@/utils/getSessionUser";
+
 
 async function getUnreadMessageCount() {
   await connectDB();
@@ -12,7 +15,7 @@ async function getUnreadMessageCount() {
 
   const count = await Message.countDocuments({
     recipient: userId,
-    is_read: true,
+    is_read: false,
   });
 
   return { count };

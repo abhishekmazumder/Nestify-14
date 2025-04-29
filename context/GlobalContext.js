@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import getUnreadMessageCount from "@/app/actions/getUnreadMessageCounte";
+import getUnreadMessageCount from "@/app/actions/getUnreadMessageCount";
 
 // Create a context for the global state
 const GlobalContext = createContext();
@@ -13,19 +13,14 @@ export const GlobalProvider = ({ children }) => {
   const { data: session } = useSession();
 
   useEffect(() => {
-    const fetchUnreadMessageCount = async () => {
-      try {
-        const { count } = await getUnreadMessageCount();
-        setUnreadMessageCount(count);
-      } catch (error) {
-        console.error("Error fetching unread message count:", error);
-      }
-    };
-
-    if (session) {
-      fetchUnreadMessageCount();
+    if (session && session.user) {
+      getUnreadMessageCount().then((res) => {
+        if (res.count) {
+          setUnreadMessageCount(res.count);
+        }
+      });
     }
-  }, [session, unreadMessageCount]);
+  }, [getUnreadMessageCount]);
 
   return (
     <GlobalContext.Provider
