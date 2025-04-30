@@ -3,7 +3,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const Pagination = ({ page, pageSize, totalPages }) => {
   return (
-    <div className="container mx-auto flex justify-center items-center my-8">
+    <div className="container mx-auto flex justify-center items-center mt-12 mb-2">
       <nav className="flex items-center space-x-2">
         {page > 1 && (
           <Link
