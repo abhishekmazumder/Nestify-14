@@ -3,7 +3,7 @@ import PropertyCard from "@/components/PropertyCard";
 import connectDB from "@/config/db";
 import Property from "@/models/Property";
 
-async function PropertiesPage({ searchParams: { page = 1, pageSize = 2 } }) {
+async function PropertiesPage({ searchParams: { page = 1, pageSize = 6 } }) {
   await connectDB();
 
   // pagination

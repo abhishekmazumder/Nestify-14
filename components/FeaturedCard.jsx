@@ -79,10 +79,9 @@ const FeaturedCard = ({ property }) => {
 
         <div className="flex flex-col lg:flex-row justify-between">
           <div className="flex align-middle gap-2 mb-4 lg:mb-0">
-            <FaMapMarker className="text-orange-500" />
+            <FaMapMarker className="text-orange-500 mt-1" />
             <span className="text-orange-700">
               {" "}
-              {property.location.street}
               {property.location.city}{" "}
             </span>
           </div>
